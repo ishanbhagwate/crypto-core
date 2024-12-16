@@ -29,7 +29,7 @@ Follow these steps to run CryptoCore on your local machine:
 2. Set up a device or emulator for testing.
 3. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/CryptoCore.git
+   git clone https://github.com/yourusername/crypto-core.git
    ```
 
 ### Steps
@@ -53,6 +53,36 @@ Follow these steps to run CryptoCore on your local machine:
 
 ---
 
+## Project Structure
+
+CryptoCore follows the **Feature-wise Clean Architecture** principles for scalable and maintainable code. Below is the directory structure:
+
+```
+lib/
+├── features/              # Feature-specific modules
+│   ├── market/            # Market feature module
+│   │   ├── data/          # Data layer (repositories, models, and data sources)
+│   │   ├── domain/        # Domain layer (entities, use cases, and abstractions)
+│   │   └── presentation/  # Presentation layer (UI and state management)
+│   ├── news/              # News feature module
+│   │   ├── data/
+│   │   ├── domain/
+│   │   └── presentation/
+│   ├── search/            # Search feature module
+│   │   ├── data/
+│   │   ├── domain/
+│   │   └── presentation/
+│   └── profile/           # Profile feature module
+│       ├── data/
+│       ├── domain/
+│       └── presentation/
+├── core/                  # Core utilities, constants, and shared resources
+├── common/                # Localization, themes, widgets, routing, etc
+└── main.dart              # Entry point of the application
+```
+
+---
+
 ## Technologies Used
 
 - **Framework**: Flutter
@@ -69,7 +99,6 @@ CryptoCore integrates with public cryptocurrency APIs to fetch real-time market 
 
 ```env
 API_KEY=your_crypto_api_key
-NEWS_API_KEY=your_news_api_key
 ```
 
 ---
