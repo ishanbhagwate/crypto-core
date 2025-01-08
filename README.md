@@ -15,7 +15,7 @@ CryptoCore is a sleek and feature-rich Flutter app designed for cryptocurrency e
 
 ## Screenshots
 
-> Add screenshots of your app here, showcasing its key features and UI.
+> Screenshots , showcasing its key features and UI.
 
 ---
 
