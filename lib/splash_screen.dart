@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import 'core/notifiers/theme_notifier.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,6 +13,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late ThemeNotifier themeNotifier;
+
   @override
   void initState() {
     Future.delayed(Duration(seconds: 1), () {
@@ -21,11 +26,22 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    themeNotifier = Provider.of<ThemeNotifier>(context);
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Animate(
         child: Center(
-          child: Image.asset('assets/images/logo.png'),
+          child: Image.asset(
+            themeNotifier.themeMode == ThemeMode.light
+                ? 'assets/images/cryptocore_logo_dark.png'
+                : 'assets/images/cryptocore_logo_light.png',
+          ),
         ),
       )
           .fadeIn(

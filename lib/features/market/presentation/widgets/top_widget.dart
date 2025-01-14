@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TopWidget extends StatefulWidget {
   const TopWidget({super.key});
@@ -22,11 +21,11 @@ class _TopWidgetState extends State<TopWidget> {
               Container(
                 width: 40,
                 height: 40,
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(3),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(
-                    color: Color(0xffbf8964),
+                    color: Theme.of(context).colorScheme.primary,
                     width: 2.5,
                     style: BorderStyle.solid,
                   ),
@@ -52,15 +51,11 @@ class _TopWidgetState extends State<TopWidget> {
                     children: [
                       Text(
                         'Hello,',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 16,
-                          color: Colors.white70,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(
                         ' John ',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),

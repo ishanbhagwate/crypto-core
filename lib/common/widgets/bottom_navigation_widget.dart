@@ -4,7 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/notifiers/theme_notifier.dart';
+import '../../core/notifiers/theme_notifier.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   final PageController pageController;

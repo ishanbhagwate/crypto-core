@@ -30,9 +30,9 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             SwitchListTile(
               value: themeNotifier.themeMode == ThemeMode.dark ? true : false,
-              activeColor: Colors.green,
+
               onChanged: (value) {
-                print('object');
+
                 themeNotifier.themeMode == ThemeMode.light
                     ? themeNotifier.setTheme(ThemeMode.dark)
                     : themeNotifier.setTheme(ThemeMode.light);

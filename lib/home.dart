@@ -1,5 +1,5 @@
 import 'package:crypto_core/features/market/presentation/pages/market_page.dart';
-import 'package:crypto_core/features/market/presentation/widgets/bottom_navigation_widget.dart';
+import 'package:crypto_core/common/widgets/bottom_navigation_widget.dart';
 import 'package:crypto_core/features/news/presentation/pages/news_page.dart';
 import 'package:crypto_core/features/profile/presentation/pages/profile_page.dart';
 import 'package:crypto_core/features/search/presentation/pages/search_page.dart';
