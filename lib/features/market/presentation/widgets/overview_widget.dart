@@ -12,7 +12,6 @@ class _OverviewWidgetState extends State<OverviewWidget> {
   @override
   Widget build(BuildContext context) {
     return Animate(
-
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
         child: Padding(

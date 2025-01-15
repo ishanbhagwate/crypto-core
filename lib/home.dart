@@ -13,7 +13,7 @@ class MainHome extends StatefulWidget {
 }
 
 class _MainHomeState extends State<MainHome> {
-  final PageController _pageController = PageController();
+  late PageController _pageController;
 
   final _pages = [
     MarketPage(),
@@ -23,8 +23,22 @@ class _MainHomeState extends State<MainHome> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           Expanded(

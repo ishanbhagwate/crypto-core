@@ -43,13 +43,16 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
           ),
           borderRadius: BorderRadius.circular(100),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 20),
+        margin: EdgeInsets.symmetric(horizontal: 15),
         padding: EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 15,
         ),
         child: GNav(
             haptic: true,
+            rippleColor:
+                Theme.of(context).bottomNavigationBarTheme.selectedItemColor!,
+                
             tabBorderRadius: 100,
             curve: Curves.easeInOutCubic,
             gap: 5,
@@ -97,138 +100,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                 icon: LineIcons.user,
                 text: 'Profile',
               )
-            ]
-
-            // child: Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   crossAxisAlignment: CrossAxisAlignment.center,
-            //   mainAxisSize: MainAxisSize.max,
-            //   spacing: 10,
-            //   children: [
-            //     InkWell(
-            //       onTap: () {
-            //         print('CLICKED');
-            //         themeNotifier.setTheme(
-            //             themeNotifier.themeMode == ThemeMode.light
-            //                 ? ThemeMode.dark
-            //                 : ThemeMode.light);
-            //       },
-            //       splashColor: Colors.white10,
-            //       borderRadius: BorderRadius.circular(100),
-            //       child: Material(
-            //         color: Colors.transparent,
-            //         child: Container(
-            //           height: 50,
-            //           decoration: BoxDecoration(
-            //             color: Color(0xffbf8964).withAlpha(20),
-            //             borderRadius: BorderRadius.circular(100),
-            //           ),
-            //           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            //           child: Row(
-            //             children: [
-            //               Icon(
-            //                 Icons.line_axis_rounded,
-            //                 size: 25,
-            //                 color: widget.pageController.page == 0
-            //                     ? Theme.of(context)
-            //                         .bottomNavigationBarTheme
-            //                         .selectedIconTheme!
-            //                         .color
-            //                     : Theme.of(context)
-            //                         .bottomNavigationBarTheme
-            //                         .unselectedIconTheme!
-            //                         .color,
-            //               ),
-            //               SizedBox(
-            //                 width: 10,
-            //               ),
-            //               Text('Market',
-            //                   style: Theme.of(context)
-            //                       .bottomNavigationBarTheme
-            //                       .selectedLabelStyle)
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //     InkWell(
-            //       onTap: () {},
-            //       splashColor: Colors.white10,
-            //       borderRadius: BorderRadius.circular(100),
-            //       child: Material(
-            //         color: Colors.transparent,
-            //         child: SizedBox(
-            //           height: 50,
-            //           width: 50,
-            //           child: Icon(
-            //             Icons.newspaper_outlined,
-            //             size: 25,
-            //             color: widget.pageController.page == 1
-            //                 ? Theme.of(context)
-            //                     .bottomNavigationBarTheme
-            //                     .selectedIconTheme!
-            //                     .color
-            //                 : Theme.of(context)
-            //                     .bottomNavigationBarTheme
-            //                     .unselectedIconTheme!
-            //                     .color,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //     InkWell(
-            //       onTap: () {},
-            //       splashColor: Colors.white10,
-            //       borderRadius: BorderRadius.circular(100),
-            //       child: Material(
-            //         color: Colors.transparent,
-            //         child: SizedBox(
-            //           height: 50,
-            //           width: 50,
-            //           child: Icon(
-            //             Icons.search_rounded,
-            //             color: widget.pageController.page == 2
-            //                 ? Theme.of(context)
-            //                     .bottomNavigationBarTheme
-            //                     .selectedIconTheme!
-            //                     .color
-            //                 : Theme.of(context)
-            //                     .bottomNavigationBarTheme
-            //                     .unselectedIconTheme!
-            //                     .color,
-            //             size: 25,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //     InkWell(
-            //       onTap: () {},
-            //       splashColor: Colors.white10,
-            //       borderRadius: BorderRadius.circular(100),
-            //       child: Material(
-            //         color: Colors.transparent,
-            //         child: SizedBox(
-            //           height: 50,
-            //           width: 50,
-            //           child: Icon(
-            //             Icons.person_rounded,
-            //             size: 25,
-            //             color: widget.pageController.page == 3
-            //                 ? Theme.of(context)
-            //                     .bottomNavigationBarTheme
-            //                     .selectedIconTheme!
-            //                     .color
-            //                 : Theme.of(context)
-            //                     .bottomNavigationBarTheme
-            //                     .unselectedIconTheme!
-            //                     .color,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            ),
+            ]),
       ),
     )
         .slideY(

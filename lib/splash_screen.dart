@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(Duration(seconds: 1), () {
       // ignore: use_build_context_synchronously
-      context.go('/');
+      context.go('/getStarted');
     });
 
     super.initState();

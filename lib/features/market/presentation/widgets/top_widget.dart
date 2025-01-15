@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_animate/flutter_animate.dart';
 
 class TopWidget extends StatefulWidget {
   const TopWidget({super.key});
@@ -13,9 +12,9 @@ class _TopWidgetState extends State<TopWidget> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Animate(
+        bottom: false,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
           child: Row(
             children: [
               Container(
@@ -106,16 +105,15 @@ class _TopWidgetState extends State<TopWidget> {
               // ),
             ],
           ),
-        ),
-      )
-          .slideY(
-            duration: 500.ms,
-            begin: -1,
-            curve: Curves.easeInOutCubic,
-          )
-          .fadeIn(
-            duration: 400.ms,
-          ),
-    );
+        )
+        // .slideY(
+        //   duration: 500.ms,
+        //   begin: -1,
+        //   curve: Curves.easeInOutCubic,
+        // )
+        // .fadeIn(
+        //   duration: 400.ms,
+        // ),
+        );
   }
 }

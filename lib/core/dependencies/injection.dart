@@ -3,6 +3,7 @@ import 'package:crypto_core/core/services/token_storage_service.dart';
 import 'package:crypto_core/features/authentication/data/datasources/remote_data_source.dart';
 import 'package:crypto_core/features/authentication/data/repositories/auth_repository_impl.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/login_usecase.dart';
+import 'package:crypto_core/features/authentication/domain/usecases/logout_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/refresh_token_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/signup_usecase.dart';
 import 'package:dio/dio.dart';
@@ -45,6 +46,9 @@ Future<void> init() async {
   );
   s1.registerLazySingleton(
     () => SignupUsecase(s1()),
+  );
+  s1.registerLazySingleton(
+    () => LogoutUsecase(s1()),
   );
   s1.registerLazySingleton(
     () => RefreshTokenUsecase(s1()),

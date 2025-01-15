@@ -1,4 +1,5 @@
 import 'package:crypto_core/features/authentication/presentation/pages/forgot_password_page.dart';
+import 'package:crypto_core/features/authentication/presentation/pages/get_started_page.dart';
 import 'package:crypto_core/features/authentication/presentation/pages/login_page.dart';
 import 'package:crypto_core/features/authentication/presentation/pages/signup_page.dart';
 import 'package:crypto_core/home.dart';
@@ -30,6 +31,10 @@ class AppRouter {
         GoRoute(
           path: '/login',
           builder: (context, state) => LoginPage(),
+        ),
+        GoRoute(
+          path: '/getStarted',
+          builder: (context, state) => GetStartedPage(),
         ),
         GoRoute(
           path: '/forgotPassword',

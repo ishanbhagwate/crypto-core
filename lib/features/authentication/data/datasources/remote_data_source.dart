@@ -1,5 +1,6 @@
 import 'package:crypto_core/features/authentication/data/models/auth_user_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 abstract class AuthRemoteDateSource {
   Future<AuthUserModel> login(String email, String password);
@@ -23,7 +24,6 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDateSource {
 
     if (response.statusCode == 200) {
       //save token
-      
 
       return AuthUserModel.fromJson(response.data);
     } else {
@@ -35,7 +35,14 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDateSource {
   Future<AuthUserModel> signup(
       String email, String password, String name, String username) async {
     // TODO: implement signup
-    throw UnimplementedError();
+    await Future.delayed(
+      2.seconds,
+      () {
+        throw UnimplementedError();
+      },
+    );
+
+
   }
 
   @override

@@ -27,3 +27,21 @@ class RefreshTokenRequested extends AuthEvent {
 
   RefreshTokenRequested(this.refreshToken);
 }
+
+class ForgotPasswordRequested extends AuthEvent {
+  final String email;
+
+  ForgotPasswordRequested(
+    this.email,
+  );
+}
+
+class ResetPasswordRequested extends AuthEvent {
+  final int otp;
+  final String newPassword;
+
+  ResetPasswordRequested(
+    this.otp,
+    this.newPassword,
+  );
+}

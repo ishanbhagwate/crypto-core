@@ -6,6 +6,7 @@ import '../widgets/overview_widget.dart';
 import '../widgets/top_widget.dart';
 
 class MarketPage extends StatefulWidget {
+  
   const MarketPage({super.key});
 
   @override
@@ -19,6 +20,9 @@ class _MarketPageState extends State<MarketPage> {
       body: Column(
         children: [
           TopWidget(),
+          SizedBox(
+            height: 15,
+          ),
           OverviewWidget(),
           SizedBox(
             height: 15,
@@ -61,12 +65,11 @@ class _MarketPageState extends State<MarketPage> {
                 ],
               ),
             ),
-          ).fadeIn(duration: 450.ms),
+          ).fadeIn(duration: 300.ms),
           Expanded(
             child: Animate(
               child: ListView.separated(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                 itemBuilder: (context, index) {
                   return CoinCardWidget();
                 },
@@ -75,10 +78,10 @@ class _MarketPageState extends State<MarketPage> {
                 ),
                 itemCount: 10,
               ),
-            ).fadeIn(duration: 450.ms),
+            ).fadeIn(duration: 300.ms),
           ),
           SizedBox(
-            height: 15,
+            height: 5,
           ),
         ],
       ),

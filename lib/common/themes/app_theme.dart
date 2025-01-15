@@ -5,6 +5,9 @@ final ThemeData lightMode = ThemeData(
   brightness: Brightness.light, useMaterial3: true,
   primaryColor: const Color(0xFF00897B),
   shadowColor: Colors.black.withAlpha(100),
+  iconTheme: IconThemeData(
+    color: Colors.black87,
+  ),
   colorScheme: const ColorScheme.light(
     primary: Color(0xFF00897B),
     secondary: Color(0xFF7C3AED),
@@ -15,6 +18,9 @@ final ThemeData lightMode = ThemeData(
     onSurface: Color(0xFF64748B),
     onError: Color(0xFFFFFFFF),
   ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(
+    color: Colors.white,
+  ),
   textTheme: TextTheme(
     bodySmall: GoogleFonts.montserrat(
       fontSize: 13,
@@ -23,12 +29,12 @@ final ThemeData lightMode = ThemeData(
     ),
     bodyMedium: GoogleFonts.montserrat(
       fontSize: 14,
-      color: Colors.black87,
+      color: Colors.black,
       fontWeight: FontWeight.w500,
     ),
     bodyLarge: GoogleFonts.montserrat(
-      fontSize: 15,
-      color: Colors.black87,
+      fontSize: 16,
+      color: Colors.black,
       fontWeight: FontWeight.w500,
     ),
     titleSmall: GoogleFonts.montserrat(
@@ -43,7 +49,7 @@ final ThemeData lightMode = ThemeData(
     ),
     titleLarge: GoogleFonts.montserrat(
       fontSize: 17,
-      color: Colors.black87,
+      color: Colors.black,
       fontWeight: FontWeight.w600,
     ),
     labelSmall: GoogleFonts.montserrat(
@@ -58,9 +64,72 @@ final ThemeData lightMode = ThemeData(
     ),
     labelLarge: GoogleFonts.montserrat(
       fontSize: 15,
-      color: Colors.black87,
+      color: Colors.black,
       fontWeight: FontWeight.w600,
     ),
+    headlineLarge: GoogleFonts.montserrat(
+      fontSize: 20,
+      color: Colors.black,
+      fontWeight: FontWeight.w700,
+    ),
+    displayMedium: GoogleFonts.montserrat(
+      fontSize: 25,
+      color: Colors.black,
+      fontWeight: FontWeight.w700,
+    ),
+    displayLarge: GoogleFonts.montserrat(
+      fontSize: 35,
+      color: Colors.black,
+      fontWeight: FontWeight.w700,
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    labelStyle: GoogleFonts.montserrat(
+      color: Colors.black54,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+    ),
+    errorStyle: GoogleFonts.montserrat(
+      color: Colors.black87,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+    ),
+    floatingLabelStyle: GoogleFonts.montserrat(
+      color: Colors.black54,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+    ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15.0),
+      borderSide: BorderSide(
+        color: Colors.black26,
+        width: 0.5,
+      ),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15.0),
+      borderSide: BorderSide(
+        color: Colors.black26,
+        width: 0.5,
+      ),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15.0),
+      borderSide: BorderSide(
+        color: Colors.red.shade600,
+        width: 1,
+      ),
+    ),
+    filled: true,
+    fillColor: Color(0xFF00897B).withAlpha(15),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15.0),
+      borderSide: BorderSide(
+        color: Colors.black87,
+        width: 0.5,
+      ),
+    ),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
   ),
   listTileTheme: ListTileThemeData(
     titleTextStyle: GoogleFonts.montserrat(
@@ -86,15 +155,34 @@ final ThemeData lightMode = ThemeData(
       borderRadius: BorderRadius.circular(20),
     ),
   ),
-
   dividerTheme: DividerThemeData(
     space: 0,
     thickness: 1,
     color: Colors.black12,
   ),
+  searchBarTheme: SearchBarThemeData(
+    backgroundColor: WidgetStatePropertyAll(Color(0xFF00897B).withAlpha(25)),
+    elevation: WidgetStatePropertyAll(0),
+    padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 15)),
+    shape: WidgetStatePropertyAll(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(100),
+      ),
+    ),
+    textStyle: WidgetStatePropertyAll(
+      GoogleFonts.montserrat(
+        fontSize: 15,
+        color: Colors.black54,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+  ),
   buttonTheme: const ButtonThemeData(
-    buttonColor: Color(0xFF7C3AED), // Electric Purple
+    buttonColor: Color(0xFF7C3AED),
     textTheme: ButtonTextTheme.primary,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+    ),
   ),
   scaffoldBackgroundColor: const Color(0xFFF9FAFB), // Soft Off-White
   canvasColor: Color(0xFFF9FAFB),
@@ -145,6 +233,10 @@ final ThemeData darkMode = ThemeData(
     onSurface: Color(0xFFD1D5DB),
     onError: Color(0xFFFFFFFF),
   ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(
+    color: Colors.white,
+  ),
+
   textTheme: TextTheme(
     bodySmall: GoogleFonts.montserrat(
       fontSize: 13,
@@ -191,6 +283,69 @@ final ThemeData darkMode = ThemeData(
       color: Colors.white,
       fontWeight: FontWeight.w600,
     ),
+    headlineLarge: GoogleFonts.montserrat(
+      fontSize: 20,
+      color: Colors.white,
+      fontWeight: FontWeight.w700,
+    ),
+    displayMedium: GoogleFonts.montserrat(
+      fontSize: 25,
+      color: Colors.white,
+      fontWeight: FontWeight.w700,
+    ),
+    displayLarge: GoogleFonts.montserrat(
+      fontSize: 35,
+      color: Colors.white,
+      fontWeight: FontWeight.w700,
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    labelStyle: GoogleFonts.montserrat(
+      color: Colors.white38,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+    ),
+    errorStyle: GoogleFonts.montserrat(
+      color: Colors.white,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+    ),
+    floatingLabelStyle: GoogleFonts.montserrat(
+      color: Colors.white70,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+    ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15.0),
+      borderSide: BorderSide(
+        color: Colors.white10,
+        width: 0.5,
+      ),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15.0),
+      borderSide: BorderSide(
+        color: Colors.white24,
+        width: 0.5,
+      ),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15.0),
+      borderSide: BorderSide(
+        color: Colors.red.shade400,
+        width: 1,
+      ),
+    ),
+    filled: true,
+    fillColor: Colors.white.withAlpha(30),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15.0),
+      borderSide: BorderSide(
+        color: Colors.white54,
+        width: 0.5,
+      ),
+    ),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
   ),
   listTileTheme: ListTileThemeData(
     titleTextStyle: GoogleFonts.montserrat(
@@ -221,9 +376,28 @@ final ThemeData darkMode = ThemeData(
     thickness: 1,
     color: Colors.white10,
   ),
+  searchBarTheme: SearchBarThemeData(
+    backgroundColor: WidgetStatePropertyAll(Colors.white.withAlpha(30)),
+    elevation: WidgetStatePropertyAll(0),
+    padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 15)),
+    shape: WidgetStatePropertyAll(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(100),
+      ),
+    ),
+    textStyle: WidgetStatePropertyAll(
+      GoogleFonts.montserrat(
+        fontSize: 15,
+        color: Colors.white54,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+  ),
   buttonTheme: const ButtonThemeData(
-    buttonColor: Color(0xFF7C3AED), // Electric Purple
     textTheme: ButtonTextTheme.primary,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+    ),
   ),
   canvasColor: Color(0xff121212),
   scaffoldBackgroundColor: Color(0xff121212),

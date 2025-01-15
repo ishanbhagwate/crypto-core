@@ -24,47 +24,59 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.refreshTokenUsecase,
     required this.logoutUsecase,
     required this.tokenStorageService,
-  }) : super(AuthInitial());
-
-  Stream<AuthState> mapEventToState(AuthEvent event) async* {
-    if (event is LoginRequested) {
-      yield AuthLoading();
-      final failureOrUser = await loginUsecase.call(
-        event.email,
-        event.password,
-      );
-      yield* _eitherSuccessOrFailure(failureOrUser);
-    } else if (event is SignupRequested) {
-      yield AuthLoading();
-      final failureOrUser = await signupUsecase.call(
-        event.email,
-        event.password,
-        event.name,
-        event.username,
-      );
-      yield* _eitherSuccessOrFailure(failureOrUser);
-    } else if (event is RefreshTokenRequested) {
-      yield AuthLoading();
-      final failureOrUser = await refreshTokenUsecase.call(
-        event.refreshToken,
-      );
-      yield* _eitherSuccessOrFailure(failureOrUser);
-    } else if (event is LogoutRequested) {
-      // Clear any saved tokens or session data
-      yield AuthLoading();
-      await logoutUsecase.call();
-      yield AuthUnauthenticated();
-    }else if(event is AppStarted){
-      // final token = await tokenStorageService.getAccessToken();
-      // if(token != null){
-      //   yield AuthAuthenticated(user)
-      // }
-    }
+  }) : super(AuthInitial()) {
+    on<LoginRequested>(_onLoginRequested);
+    on<SignupRequested>(_onSignupRequested);
+    on<RefreshTokenRequested>(_onRefreshTokenRequested);
+    on<LogoutRequested>(_onLogoutRequested);
+    on<AppStarted>(_onAppStarted);
   }
 
-  Stream<AuthState> _eitherSuccessOrFailure(
-      Either<String, User> either) async* {
-    yield either.fold(
+  Future<void> _onLoginRequested(
+      LoginRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    final failureOrUser = await loginUsecase.call(event.email, event.password);
+    emit(_eitherSuccessOrFailure(failureOrUser));
+  }
+
+  Future<void> _onSignupRequested(
+      SignupRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    final failureOrUser = await signupUsecase.call(
+      event.email,
+      event.password,
+      event.name,
+      event.username,
+    );
+    emit(_eitherSuccessOrFailure(failureOrUser));
+  }
+
+  Future<void> _onRefreshTokenRequested(
+      RefreshTokenRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    final failureOrUser = await refreshTokenUsecase.call(event.refreshToken);
+    emit(_eitherSuccessOrFailure(failureOrUser));
+  }
+
+  Future<void> _onLogoutRequested(
+      LogoutRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    await logoutUsecase.call();
+    emit(AuthUnauthenticated());
+  }
+
+  Future<void> _onAppStarted(AppStarted event, Emitter<AuthState> emit) async {
+    // final token = await tokenStorageService.getAccessToken();
+    // if (token != null) {
+    //   final user = await tokenStorageService.getUser(); // Replace with actual logic
+    //   emit(AuthAuthenticated(user));
+    // } else {
+    //   emit(AuthUnauthenticated());
+    // }
+  }
+
+  AuthState _eitherSuccessOrFailure(Either<String, User> either) {
+    return either.fold(
       (failure) => AuthError(failure),
       (user) => AuthAuthenticated(user),
     );
