@@ -1,24 +1,26 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ApiConstants {
-  static const String baseUrl = "http://localhost/3000/api/v1";
+  static String baseUrl = '${dotenv.env['SERVER_URL']}/api/v1';
 
   //auth
-  static const String login = "$baseUrl/auth/login";
-  static const String logout = "$baseUrl/auth/logout";
-  static const String refreshToken = "$baseUrl/auth/refresh";
-  static const String signup = "$baseUrl/auth/signup";
-  static const String forgotPassword = "$baseUrl/auth/forgotPassword";
-  static const String resetPassword = "$baseUrl/auth/resetPassword";
+  static String login = "$baseUrl/auth/login";
+  static String logout = "$baseUrl/auth/logout";
+  static String refreshToken = "$baseUrl/auth/refresh";
+  static String signup = "$baseUrl/auth/signup";
+  static String forgotPassword = "$baseUrl/auth/forgotPassword";
+  static String resetPassword = "$baseUrl/auth/resetPassword";
 
   //crypto
-  static const String getOverview = "$baseUrl/crypto/overview";
-  static const String getCoins = "$baseUrl/crypto/coins";
+  static String getOverview = "$baseUrl/crypto/overview";
+  static String getCoins = "$baseUrl/crypto/coins";
 
   //news
-  static const String getNews = "$baseUrl/news";
+  static String getNews = "$baseUrl/news";
 
   //search
-  static const String searchCrypto = "$baseUrl/search";
+  static String searchCrypto = "$baseUrl/search";
 
   //profile
-  static const String getProfile = "$baseUrl/profile";
+  static String getProfile = "$baseUrl/profile";
 }

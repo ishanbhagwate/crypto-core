@@ -12,12 +12,15 @@ import 'package:crypto_core/features/authentication/domain/usecases/signup_useca
 import 'package:crypto_core/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
 import 'common/navigation/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //TODO: change this in prod
+  await dotenv.load(fileName: ".env.local");
   await init();
 
   runApp(
