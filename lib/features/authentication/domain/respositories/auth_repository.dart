@@ -7,4 +7,7 @@ abstract class AuthRepository {
       String email, String password, String name, String username);
   Future<Either<String, User>> refreshToken(String refreshToken);
   Future<void> logout();
+  Future<Either<String, void>> forgotPassword(String email);
+  Future<Either<String, void>> resetPassword(
+      String email, int otp, String newPassword);
 }

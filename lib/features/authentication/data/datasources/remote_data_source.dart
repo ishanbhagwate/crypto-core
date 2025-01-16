@@ -8,6 +8,8 @@ abstract class AuthRemoteDateSource {
   Future<AuthUserModel> refreshToken(String refreshToken);
   Future<AuthUserModel> signup(
       String email, String password, String name, String username);
+  Future<void> forgotPassword(String email);
+  Future<void> resetPassword(String email, int otp, String newPassword);
 }
 
 class AuthRemoteDateSourceImpl extends AuthRemoteDateSource {
@@ -41,8 +43,6 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDateSource {
         throw UnimplementedError();
       },
     );
-
-
   }
 
   @override
@@ -65,5 +65,22 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDateSource {
     } else {
       throw Exception(response.statusMessage);
     }
+  }
+
+  @override
+  Future<void> forgotPassword(String email) {
+    throw UnimplementedError();
+
+    // try {
+    //   // dio.post('path');
+    // } catch (e) {
+    //   throw Exception(e);
+    // }
+  }
+
+  @override
+  Future<void> resetPassword(String email, int otp, String newPassword) {
+    // TODO: implement resetPassword
+    throw UnimplementedError();
   }
 }

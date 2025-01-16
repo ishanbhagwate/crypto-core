@@ -1,6 +1,8 @@
 import 'package:crypto_core/core/services/token_storage_service.dart';
 import 'package:crypto_core/features/authentication/domain/entities/user.dart';
+import 'package:crypto_core/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/refresh_token_usecase.dart';
+import 'package:crypto_core/features/authentication/domain/usecases/reset_password_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +17,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUsecase loginUsecase;
   final SignupUsecase signupUsecase;
   final RefreshTokenUsecase refreshTokenUsecase;
+  final ForgotPasswordUsecase forgotPasswordUsecase;
+  final ResetPasswordUsecase resetPasswordUsecase;
   final LogoutUsecase logoutUsecase;
   final TokenStorageService tokenStorageService;
 
@@ -24,12 +28,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.refreshTokenUsecase,
     required this.logoutUsecase,
     required this.tokenStorageService,
+    required this.forgotPasswordUsecase,
+    required this.resetPasswordUsecase,
   }) : super(AuthInitial()) {
     on<LoginRequested>(_onLoginRequested);
     on<SignupRequested>(_onSignupRequested);
     on<RefreshTokenRequested>(_onRefreshTokenRequested);
     on<LogoutRequested>(_onLogoutRequested);
     on<AppStarted>(_onAppStarted);
+    on<ForgotPasswordRequested>(_onForgotPasswordRequested);
+    on<ResetPasswordRequested>(_onResetPasswordRequested);
   }
 
   Future<void> _onLoginRequested(
@@ -49,6 +57,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.username,
     );
     emit(_eitherSuccessOrFailure(failureOrUser));
+  }
+
+  Future<void> _onForgotPasswordRequested(
+      ForgotPasswordRequested event, Emitter<AuthState> emit) async {
+    emit(ForgotPasswordLoading());
+    // final failureOrUser = await signupUsecase.call(
+    //   event.email,
+    //   event.password,
+    //   event.name,
+    //   event.username,
+    // );
+    // emit(_eitherSuccessOrFailure(failureOrUser));
+  }
+
+  Future<void> _onResetPasswordRequested(
+      ResetPasswordRequested event, Emitter<AuthState> emit) async {
+    emit(ResetPasswordLoading());
+    // final failureOrUser = await signupUsecase.call(
+    //   event.email,
+    //   event.password,
+    //   event.name,
+    //   event.username,
+    // );
+    // emit(_eitherSuccessOrFailure(failureOrUser));
   }
 
   Future<void> _onRefreshTokenRequested(

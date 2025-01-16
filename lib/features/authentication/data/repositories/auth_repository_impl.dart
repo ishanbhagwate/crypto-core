@@ -65,4 +65,16 @@ class AuthRepositoryImpl extends AuthRepository {
       return Left('Token refresh failed: $e');
     }
   }
+  
+  @override
+  Future<Either<String, void>> forgotPassword(String email) {
+    // TODO: implement forgotPassword
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<String, void>> resetPassword(String email, int otp, String newPassword) {
+    // TODO: implement resetPassword
+    throw UnimplementedError();
+  }
 }

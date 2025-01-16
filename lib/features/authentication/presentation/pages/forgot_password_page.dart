@@ -25,7 +25,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
-      context.read<AuthBloc>().add()
+      context.read<AuthBloc>().add(
+            ForgotPasswordRequested(_emailController.text),
+          );
     }
   }
 
@@ -212,7 +214,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 ),
               ),
             ),
-            Spacer(flex: 2,),
+            Spacer(
+              flex: 2,
+            ),
           ],
         ),
       ),

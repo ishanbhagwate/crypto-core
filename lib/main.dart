@@ -3,9 +3,11 @@ import 'package:crypto_core/common/themes/app_theme.dart';
 import 'package:crypto_core/core/dependencies/injection.dart';
 import 'package:crypto_core/core/notifiers/theme_notifier.dart';
 import 'package:crypto_core/core/services/token_storage_service.dart';
+import 'package:crypto_core/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/login_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/logout_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/refresh_token_usecase.dart';
+import 'package:crypto_core/features/authentication/domain/usecases/reset_password_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/signup_usecase.dart';
 import 'package:crypto_core/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ import 'package:provider/provider.dart';
 
 import 'common/navigation/app_router.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
 
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
             signupUsecase: s1<SignupUsecase>(),
             refreshTokenUsecase: s1<RefreshTokenUsecase>(),
             logoutUsecase: s1<LogoutUsecase>(),
+            forgotPasswordUsecase: s1<ForgotPasswordUsecase>(),
+            resetPasswordUsecase: s1<ResetPasswordUsecase>(),
             tokenStorageService: s1<TokenStorageService>(),
           ),
         ),

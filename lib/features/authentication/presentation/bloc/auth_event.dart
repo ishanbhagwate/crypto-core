@@ -37,10 +37,12 @@ class ForgotPasswordRequested extends AuthEvent {
 }
 
 class ResetPasswordRequested extends AuthEvent {
+  final String email;
   final int otp;
   final String newPassword;
 
   ResetPasswordRequested(
+    this.email,
     this.otp,
     this.newPassword,
   );
