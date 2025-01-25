@@ -1,6 +1,6 @@
+import 'package:crypto_core/core/constants/api_constants.dart';
 import 'package:crypto_core/features/authentication/data/models/auth_user_model.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 abstract class AuthRemoteDateSource {
   Future<AuthUserModel> login(String email, String password);
@@ -19,30 +19,47 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDateSource {
 
   @override
   Future<AuthUserModel> login(String email, String password) async {
-    final response = await dio.post('path', data: {
-      email,
-      password,
-    });
+    try {
+      final response = await dio.post(
+        ApiConstants.login,
+        data: {
+          email,
+          password,
+        },
+      );
 
-    if (response.statusCode == 200) {
-      //save token
-
-      return AuthUserModel.fromJson(response.data);
-    } else {
-      throw Exception(response.statusMessage);
+      if (response.statusCode == 200) {
+        return AuthUserModel.fromJson(response.data);
+      } else {
+        throw Exception(response.statusMessage);
+      }
+    } catch (e) {
+      throw Exception(e);
     }
   }
 
   @override
   Future<AuthUserModel> signup(
       String email, String password, String name, String username) async {
-    // TODO: implement signup
-    await Future.delayed(
-      2.seconds,
-      () {
-        throw UnimplementedError();
-      },
-    );
+    try {
+      final response = await dio.post(
+        ApiConstants.signup,
+        data: {
+          email,
+          password,
+          name,
+          username,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return AuthUserModel.fromJson(response.data);
+      } else {
+        throw Exception(response.statusMessage);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   @override
