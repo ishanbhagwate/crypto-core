@@ -43,7 +43,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onLoginRequested(
       LoginRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    final failureOrUser = await loginUsecase.call(event.email, event.password);
+    final failureOrUser = await loginUsecase.call(
+      event.email,
+      event.password,
+      event.isSocial,
+      event.provider,
+      event.providerId,
+      event.deviceInfo,
+      event.ipAddress,
+    );
     emit(_eitherSuccessOrFailure(failureOrUser));
   }
 
@@ -52,9 +60,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     final failureOrUser = await signupUsecase.call(
       event.email,
-      event.password,
       event.name,
-      event.username,
+      event.password,
+      event.isSocial,
+      event.provider,
+      event.providerId,
+      event.deviceInfo,
+      event.ipAddress,
     );
     emit(_eitherSuccessOrFailure(failureOrUser));
   }

@@ -8,7 +8,24 @@ class SignupUsecase {
   SignupUsecase(this.repository);
 
   Future<Either<String, User>> call(
-      String email, String password, String name, String username) {
-    return repository.signup(email, password, name, username);
+    String email,
+    String name,
+    String? password,
+    bool isSocial,
+    String? provider,
+    String? providerId,
+    String? deviceInfo,
+    String? ipAddress,
+  ) {
+    return repository.signup(
+      email,
+      name,
+      password,
+      isSocial,
+      provider,
+      providerId,
+      deviceInfo,
+      ipAddress,
+    );
   }
 }

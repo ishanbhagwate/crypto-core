@@ -5,34 +5,30 @@ import 'package:crypto_core/features/authentication/domain/respositories/auth_re
 import 'package:dartz/dartz.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  final AuthRemoteDateSource remoteDateSource;
+  final AuthRemoteDataSource remoteDateSource;
   final TokenStorageService tokenStorageService;
 
   AuthRepositoryImpl(this.remoteDateSource, this.tokenStorageService);
 
   @override
-  Future<Either<String, User>> login(String email, String password) async {
+  Future<Either<String, User>> login(
+    String email,
+    String? password,
+    bool isSocial,
+    String? provider,
+    String? providerId,
+    String? deviceInfo,
+    String? ipAddress,
+  ) async {
     try {
-      final user = await remoteDateSource.login(email, password);
-
-      //save tokens
-      await tokenStorageService.saveTokens(user.accessToken, user.refreshToken);
-
-      return Right(user);
-    } catch (e) {
-      return Left('Login failed: $e');
-    }
-  }
-
-  @override
-  Future<Either<String, User>> signup(
-      String email, String password, String name, String username) async {
-    try {
-      final user = await remoteDateSource.signup(
+      final user = await remoteDateSource.login(
         email,
         password,
-        name,
-        username,
+        isSocial,
+        provider,
+        providerId,
+        deviceInfo,
+        ipAddress,
       );
 
       //save tokens
@@ -40,7 +36,39 @@ class AuthRepositoryImpl extends AuthRepository {
 
       return Right(user);
     } catch (e) {
-      return Left('Signup failed: $e');
+      return Left('$e');
+    }
+  }
+
+  @override
+  Future<Either<String, User>> signup(
+    String email,
+    String name,
+    String? password,
+    bool isSocial,
+    String? provider,
+    String? providerId,
+    String? deviceInfo,
+    String? ipAddress,
+  ) async {
+    try {
+      final user = await remoteDateSource.signup(
+        email,
+        name,
+        password,
+        isSocial,
+        provider,
+        providerId,
+        deviceInfo,
+        ipAddress,
+      );
+
+      //save tokens
+      await tokenStorageService.saveTokens(user.accessToken, user.refreshToken);
+
+      return Right(user);
+    } catch (e) {
+      return Left('$e');
     }
   }
 
@@ -65,16 +93,15 @@ class AuthRepositoryImpl extends AuthRepository {
       return Left('Token refresh failed: $e');
     }
   }
-  
+
   @override
-  Future<Either<String, void>> forgotPassword(String email) {
-    // TODO: implement forgotPassword
-    throw UnimplementedError();
+  Future<Either<String, void>> forgotPassword(String email) async {
+    return Left('Forgot password functionality is not implemented yet');
   }
-  
+
   @override
-  Future<Either<String, void>> resetPassword(String email, int otp, String newPassword) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<Either<String, void>> resetPassword(
+      String email, int otp, String newPassword) async {
+    return Left('Reset password functionality is not implemented yet');
   }
 }

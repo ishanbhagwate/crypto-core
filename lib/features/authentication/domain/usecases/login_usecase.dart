@@ -7,7 +7,23 @@ class LoginUsecase {
 
   LoginUsecase(this.repository);
 
-  Future<Either<String, User>> call(String email, String password) {
-    return repository.login(email, password);
+  Future<Either<String, User>> call(
+     String email,
+     String? password,
+     bool isSocial,
+     String? provider,
+     String? providerId,
+     String? deviceInfo,
+     String? ipAddress,
+  ) {
+    return repository.login(
+      email,
+      password,
+      isSocial,
+      provider,
+      providerId,
+      deviceInfo,
+      ipAddress,
+    );
   }
 }

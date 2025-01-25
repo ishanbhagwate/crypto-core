@@ -6,20 +6,46 @@ class AppStarted extends AuthEvent {}
 
 class LoginRequested extends AuthEvent {
   final String email;
-  final String password;
+  final String? password;
+  final bool isSocial;
+  final String? provider;
+  final String? providerId;
+  final String? deviceInfo;
+  final String? ipAddress;
 
-  LoginRequested(this.email, this.password);
+  LoginRequested({
+    required this.email,
+    this.password,
+    required this.isSocial,
+    this.deviceInfo,
+    this.ipAddress,
+    this.provider,
+    this.providerId,
+  });
 }
 
 class LogoutRequested extends AuthEvent {}
 
 class SignupRequested extends AuthEvent {
   final String email;
-  final String password;
   final String name;
-  final String username;
+  final String? password;
+  final bool isSocial;
+  final String? provider;
+  final String? providerId;
+  final String? deviceInfo;
+  final String? ipAddress;
 
-  SignupRequested(this.email, this.password, this.name, this.username);
+  SignupRequested({
+    required this.email,
+    required this.name,
+    this.password,
+    required this.isSocial,
+    this.deviceInfo,
+    this.ipAddress,
+    this.provider,
+    this.providerId,
+  });
 }
 
 class RefreshTokenRequested extends AuthEvent {

@@ -18,26 +18,29 @@ import '../../features/authentication/domain/respositories/auth_repository.dart'
 final s1 = GetIt.asNewInstance();
 
 Future<void> init() async {
-  //dio
-  s1.registerLazySingleton(() => Dio());
-
-  //flutter secure storage
+  //core
+  s1.registerLazySingleton(() {
+    final dio = Dio();
+    return dio;
+  });
   s1.registerLazySingleton(
-    () => FlutterSecureStorage(),
+    () => FlutterSecureStorage(
+      aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ),
+    ),
   );
-
   s1.registerLazySingleton(
     () => TokenStorageService(s1()),
   );
-
-  //home
   final prefs = await SharedPreferences.getInstance();
+  s1.registerLazySingleton(() async => prefs);
 
-  s1.registerLazySingleton(() => prefs);
+  //theme
   s1.registerLazySingleton(() => ThemeNotifier());
 
   //auth
-  s1.registerLazySingleton<AuthRemoteDateSource>(
+  s1.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDateSourceImpl(s1()),
   );
   s1.registerLazySingleton<AuthRepository>(
@@ -63,4 +66,6 @@ Future<void> init() async {
   );
 
   //news
+
+  await s1.allReady();
 }

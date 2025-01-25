@@ -1,6 +1,8 @@
+import 'package:crypto_core/core/constants/api_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -23,23 +25,57 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<AuthBloc>().add(
             SignupRequested(
-              _emailController.text,
-              _passwordController.text,
-              _nameController.text,
-              'username',
+              email: _emailController.text,
+              isSocial: true,
+              name: _nameController.text,
+              password: _passwordController.text,
             ),
           );
-
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text("Form submitted successfully!"),
-      //   ),
-      // );
     }
+  }
+
+  void _googleSignUp() async {
+    try {
+      await _googleSignIn.signIn();
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Something went wrong'),
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _googleSignIn.onCurrentUserChanged.listen(
+      (GoogleSignInAccount? account) async {
+        bool isAuthorized = account != null;
+
+        if (isAuthorized) {
+          //call API
+          // ignore: use_build_context_synchronously
+          context.read<AuthBloc>().add(
+                SignupRequested(
+                  email: account.email,
+                  isSocial: true,
+                  providerId: account.id,
+                  provider: SocialProvider.google.name,
+                  name: account.displayName ?? '',
+                ),
+              );
+        }
+      },
+    );
   }
 
   @override
@@ -53,9 +89,10 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
+
         if (state is AuthAuthenticated) {
           // Navigate to the home page or desired route on successful signup
-          context.go('/home');
+          context.go('/');
         } else if (state is AuthError) {
           // Show an error message if signup fails
           ScaffoldMessenger.of(context).showSnackBar(
@@ -157,6 +194,7 @@ class _SignupPageState extends State<SignupPage> {
                         highlightElevation: 0,
                         color: Theme.of(context).cardTheme.color,
                         onPressed: () {
+                          _googleSignUp();
                           // context.push('/login');
                         },
                         child: Row(
@@ -310,10 +348,6 @@ class _SignupPageState extends State<SignupPage> {
                         elevation: 0,
                         color: Theme.of(context).colorScheme.secondary,
                         onPressed: () {
-                          // context.push('/login');
-                          themeNotifier.themeMode == ThemeMode.light
-                              ? themeNotifier.setTheme(ThemeMode.dark)
-                              : themeNotifier.setTheme(ThemeMode.light);
                           _submitForm();
                         },
                         child: SizedBox(
@@ -332,10 +366,6 @@ class _SignupPageState extends State<SignupPage> {
                       elevation: 0,
                       color: Theme.of(context).colorScheme.secondary,
                       onPressed: () {
-                        // context.push('/login');
-                        // themeNotifier.themeMode == ThemeMode.light
-                        //     ? themeNotifier.setTheme(ThemeMode.dark)
-                        //     : themeNotifier.setTheme(ThemeMode.light);
                         _submitForm();
                       },
                       child: Text(
