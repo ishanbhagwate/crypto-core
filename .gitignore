@@ -12,7 +12,6 @@
 .swiftpm/
 migrate_working_dir/
 
-
 .env
 .env.local
 
@@ -48,6 +47,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-/ios/Runner/Info.plist
+ios/Runner/Info.plist
+ios/Runner/GoogleService-Info.plist
 
-/android/app/google-services.json
+
+android/app/google-services.json
