@@ -32,9 +32,9 @@ class _SignupPageState extends State<SignupPage> {
       context.read<AuthBloc>().add(
             SignupRequested(
               email: _emailController.text,
-              isSocial: true,
               name: _nameController.text,
               password: _passwordController.text,
+              isSocial: false,
             ),
           );
     }
@@ -89,7 +89,6 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-
         if (state is AuthAuthenticated) {
           // Navigate to the home page or desired route on successful signup
           context.go('/');
@@ -195,7 +194,7 @@ class _SignupPageState extends State<SignupPage> {
                         color: Theme.of(context).cardTheme.color,
                         onPressed: () {
                           _googleSignUp();
-                          // context.push('/login');
+
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -226,7 +225,7 @@ class _SignupPageState extends State<SignupPage> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         color: Theme.of(context).cardTheme.color,
                         onPressed: () {
-                          // context.push('/login');
+
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

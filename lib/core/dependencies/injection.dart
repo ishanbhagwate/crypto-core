@@ -1,4 +1,5 @@
 import 'package:crypto_core/core/notifiers/theme_notifier.dart';
+import 'package:crypto_core/core/services/token_service.dart';
 import 'package:crypto_core/core/services/token_storage_service.dart';
 import 'package:crypto_core/features/authentication/data/datasources/remote_data_source.dart';
 import 'package:crypto_core/features/authentication/data/repositories/auth_repository_impl.dart';
@@ -35,6 +36,10 @@ Future<void> init() async {
   );
   final prefs = await SharedPreferences.getInstance();
   s1.registerLazySingleton(() async => prefs);
+
+  s1.registerLazySingleton(
+    () => TokenService(s1(), s1()),
+  );
 
   //theme
   s1.registerLazySingleton(() => ThemeNotifier());

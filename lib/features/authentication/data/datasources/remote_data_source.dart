@@ -145,16 +145,23 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDataSource {
 
   @override
   Future<AuthUserModel> refreshToken(String refreshToken) async {
-    final response = await dio.post('path', data: {
-      'refresh_token': refreshToken,
-    });
+    try {
+      final response = await dio.post(
+        ApiConstants.refreshToken,
+        data: {
+          'refreshToken': refreshToken,
+        },
+      );
 
-    if (response.statusCode == 200) {
-      //save token
+      if (response.statusCode == 200) {
+        //save token
 
-      return AuthUserModel.fromJson(response.data);
-    } else {
-      throw Exception(response.statusMessage);
+        return AuthUserModel.fromJson(response.data);
+      } else {
+        throw Exception(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw 'Refresh token failed: ${e.response?.data['message']}';
     }
   }
 
