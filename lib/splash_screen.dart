@@ -39,17 +39,17 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthTokenExpired) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Session expired. Please log in again.')),
-          );
-          Navigator.pushReplacementNamed(context, '/getStarted');
-        }
-        if (state is AuthTokenRefreshed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Session refreshed.')),
-          );
-        }
+        // if (state is AuthTokenExpired) {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(content: Text('Session expired. Please log in again.')),
+        //   );
+        //   Navigator.pushReplacementNamed(context, '/getStarted');
+        // }
+        // if (state is AuthTokenRefreshed) {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(content: Text('Session refreshed.')),
+        //   );
+        // }
       },
       builder: (context, state) {
         return Scaffold(
