@@ -1,4 +1,3 @@
-import 'package:crypto_core/core/notifiers/theme_notifier.dart';
 import 'package:crypto_core/core/services/token_service.dart';
 import 'package:crypto_core/core/services/token_storage_service.dart';
 import 'package:crypto_core/features/authentication/data/datasources/remote_data_source.dart';
@@ -16,61 +15,61 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/authentication/domain/respositories/auth_repository.dart';
 
-final s1 = GetIt.asNewInstance();
+final sl = GetIt.asNewInstance();
 
 Future<void> init() async {
   //core
-  s1.registerLazySingleton(() {
+  sl.registerLazySingleton(() {
     final dio = Dio();
     return dio;
   });
-  s1.registerLazySingleton(
+  sl.registerLazySingleton(
     () => FlutterSecureStorage(
       aOptions: AndroidOptions(
         encryptedSharedPreferences: true,
       ),
     ),
   );
-  s1.registerLazySingleton(
-    () => TokenStorageService(s1()),
+  sl.registerLazySingleton(
+    () => TokenStorageService(sl()),
   );
   final prefs = await SharedPreferences.getInstance();
-  s1.registerLazySingleton(() async => prefs);
+  sl.registerLazySingleton(() async => prefs);
 
-  s1.registerLazySingleton(
-    () => TokenService(s1(), s1()),
+  sl.registerLazySingleton(
+    () => TokenService(sl(), sl()),
   );
 
   //theme
-  s1.registerLazySingleton(() => ThemeNotifier());
+  // sl.registerLazySingleton(() => ThemeNotifier());
 
   //auth
-  s1.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDateSourceImpl(s1()),
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDateSourceImpl(sl()),
   );
-  s1.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(s1(), s1()),
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(sl(), sl()),
   );
-  s1.registerLazySingleton(
-    () => LoginUsecase(s1()),
+  sl.registerLazySingleton(
+    () => LoginUsecase(sl()),
   );
-  s1.registerLazySingleton(
-    () => SignupUsecase(s1()),
+  sl.registerLazySingleton(
+    () => SignupUsecase(sl()),
   );
-  s1.registerLazySingleton(
-    () => LogoutUsecase(s1()),
+  sl.registerLazySingleton(
+    () => LogoutUsecase(sl()),
   );
-  s1.registerLazySingleton(
-    () => RefreshTokenUsecase(s1()),
+  sl.registerLazySingleton(
+    () => RefreshTokenUsecase(sl()),
   );
-  s1.registerLazySingleton(
-    () => ForgotPasswordUsecase(s1()),
+  sl.registerLazySingleton(
+    () => ForgotPasswordUsecase(sl()),
   );
-  s1.registerLazySingleton(
-    () => ResetPasswordUsecase(s1()),
+  sl.registerLazySingleton(
+    () => ResetPasswordUsecase(sl()),
   );
 
   //news
 
-  await s1.allReady();
+  await sl.allReady();
 }

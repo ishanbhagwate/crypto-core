@@ -78,6 +78,7 @@ class AuthRepositoryImpl extends AuthRepository {
     await tokenStorageService.clearTokens();
 
     await remoteDateSource.logout();
+    return;
   }
 
   @override
@@ -103,5 +104,19 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<String, void>> resetPassword(
       String email, int otp, String newPassword) async {
     return Left('Reset password functionality is not implemented yet');
+  }
+
+  @override
+  Future<void> appStarted() async{
+    String? accessToken = await tokenStorageService.getAccessToken();
+    if(accessToken == null){
+      //logout
+      
+    }else{
+
+    }
+
+    await remoteDateSource.appStarted();
+    return ;
   }
 }

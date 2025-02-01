@@ -4,7 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/notifiers/theme_notifier.dart';
+import '../../features/theme/presentation/bloc/theme_bloc.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   final PageController pageController;
@@ -19,11 +19,11 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
-  late ThemeNotifier themeNotifier;
+  // late ThemeNotifier themeNotifier;
 
   @override
   void didChangeDependencies() {
-    themeNotifier = Provider.of<ThemeNotifier>(context);
+    // themeNotifier = Provider.of<ThemeNotifier>(context);
 
     super.didChangeDependencies();
   }
@@ -35,7 +35,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         decoration: BoxDecoration(
           color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
           border: Border.all(
-            color: themeNotifier.themeMode == ThemeMode.dark
+            color:  context.read<ThemeBloc>().state.themeMode  == ThemeMode.dark
                 ? Colors.white10
                 : Colors.black.withAlpha(15),
             width: 1,

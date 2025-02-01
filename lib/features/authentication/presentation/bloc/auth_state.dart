@@ -39,3 +39,5 @@ final class ResetPasswordFailed extends AuthState {
 
   ResetPasswordFailed(this.message);
 }
+
+

@@ -7,9 +7,12 @@ import 'package:crypto_core/splash_screen.dart';
 
 import 'package:go_router/go_router.dart';
 
+import 'route_paths.dart';
+
+
 class AppRouter {
   static final GoRouter router = GoRouter(
-      initialLocation: '/splash',
+      initialLocation: RoutePaths.splash.path,
       redirect: (context, state) {
         //check if logged in
 
@@ -17,27 +20,27 @@ class AppRouter {
       },
       routes: [
         GoRoute(
-          path: '/',
+          path: RoutePaths.home.path,
           builder: (context, state) => MainHome(),
         ),
         GoRoute(
-          path: '/splash',
+          path: RoutePaths.splash.path,
           builder: (context, state) => SplashScreen(),
         ),
         GoRoute(
-          path: '/signup',
+          path: RoutePaths.signup.path,
           builder: (context, state) => SignupPage(),
         ),
         GoRoute(
-          path: '/login',
+          path: RoutePaths.login.path,
           builder: (context, state) => LoginPage(),
         ),
         GoRoute(
-          path: '/getStarted',
+          path: RoutePaths.getStarted.path,
           builder: (context, state) => GetStartedPage(),
         ),
         GoRoute(
-          path: '/forgotPassword',
+          path: RoutePaths.forgotPassword.path,
           builder: (context, state) => ForgotPasswordPage(),
         ),
       ]);

@@ -1,10 +1,9 @@
+import 'package:crypto_core/core/extensions/theme_extension.dart';
 import 'package:crypto_core/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:provider/provider.dart';
-
-import '../../../../core/notifiers/theme_notifier.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -14,7 +13,7 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  late ThemeNotifier themeNotifier;
+  // late ThemeNotifier themeNotifier;
   bool _isPasswordVisible = false;
   bool _isOtpSent = false;
 
@@ -31,12 +30,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     }
   }
 
-  @override
-  void didChangeDependencies() {
-    themeNotifier = Provider.of<ThemeNotifier>(context);
+  // @override
+  // void didChangeDependencies() {
+  //   themeNotifier = Provider.of<ThemeNotifier>(context);
 
-    super.didChangeDependencies();
-  }
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +47,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [
-                themeNotifier.themeMode == ThemeMode.light
+                context.themeMode == ThemeMode.light
                     ? Theme.of(context).colorScheme.primary.withAlpha(100)
                     : Colors.white12,
-                themeNotifier.themeMode == ThemeMode.light
+                context.themeMode == ThemeMode.light
                     ? Theme.of(context).canvasColor
                     : Colors.transparent,
               ],
@@ -59,7 +58,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               end: Alignment.bottomCenter,
               stops: [
                 0.0,
-                themeNotifier.themeMode == ThemeMode.light ? 0.4 : 0.8,
+                context.themeMode == ThemeMode.light ? 0.4 : 0.8,
               ]),
         ),
         child: Column(
@@ -79,7 +78,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           border: Border.all(
                             width: 2,
                             style: BorderStyle.solid,
-                            color: themeNotifier.themeMode == ThemeMode.dark
+                            color: context.themeMode == ThemeMode.dark
                                 ? Colors.white
                                 : Colors.black87,
                           ),

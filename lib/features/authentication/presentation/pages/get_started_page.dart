@@ -1,8 +1,9 @@
-import 'package:crypto_core/core/notifiers/theme_notifier.dart';
+
+import 'package:crypto_core/core/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+
 
 class GetStartedPage extends StatefulWidget {
   const GetStartedPage({super.key});
@@ -12,14 +13,14 @@ class GetStartedPage extends StatefulWidget {
 }
 
 class _GetStartedPageState extends State<GetStartedPage> {
-  late ThemeNotifier themeNotifier;
+  // late ThemeNotifier themeNotifier;
 
-  @override
-  void didChangeDependencies() {
-    themeNotifier = Provider.of<ThemeNotifier>(context);
+  // @override
+  // void didChangeDependencies() {
+  //   themeNotifier = Provider.of<ThemeNotifier>(context);
 
-    super.didChangeDependencies();
-  }
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +31,10 @@ class _GetStartedPageState extends State<GetStartedPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [
-                themeNotifier.themeMode == ThemeMode.light
+                context.themeMode == ThemeMode.light
                     ? Theme.of(context).colorScheme.primary.withAlpha(100)
                     : Colors.white12,
-                themeNotifier.themeMode == ThemeMode.light
+                context.themeMode == ThemeMode.light
                     ? Theme.of(context).canvasColor
                     : Colors.transparent,
               ],
@@ -41,7 +42,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
               end: Alignment.bottomCenter,
               stops: [
                 0.0,
-                themeNotifier.themeMode == ThemeMode.light ? 0.4 : 0.8,
+                context.themeMode == ThemeMode.light ? 0.4 : 0.8,
               ]),
         ),
         child: Column(

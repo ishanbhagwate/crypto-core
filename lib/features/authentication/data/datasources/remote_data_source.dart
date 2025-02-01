@@ -13,6 +13,7 @@ abstract class AuthRemoteDataSource {
     final String? ipAddress,
   );
   Future<void> logout();
+  Future<void> appStarted();
   Future<AuthUserModel> refreshToken(String refreshToken);
   Future<AuthUserModel> signup(
     final String email,
@@ -138,9 +139,24 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDataSource {
 
   @override
   Future<void> logout() async {
-    //TODO: clear saved tokens
+    try {
+      final response = await dio.post(
+        ApiConstants.logout,
+        data: {
+          'token': refreshToken,
+        },
+      );
 
-    await dio.post('path');
+      if (response.statusCode == 200) {
+        //save token
+
+        // return AuthUserModel.fromJson(response.data);
+      } else {
+        throw Exception(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw 'Logout failed: ${e.response?.data['message']}';
+    }
   }
 
   @override
@@ -180,5 +196,29 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDataSource {
   Future<void> resetPassword(String email, int otp, String newPassword) {
     // TODO: implement resetPassword
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> appStarted() async {
+    try {
+      
+
+      final response = await dio.post(
+        ApiConstants.logout,
+        data: {
+          'token': refreshToken,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        //save token
+
+        // return AuthUserModel.fromJson(response.data);
+      } else {
+        throw Exception(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw 'Logout failed: ${e.response?.data['message']}';
+    }
   }
 }

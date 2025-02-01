@@ -26,4 +26,5 @@ abstract class AuthRepository {
   Future<Either<String, void>> forgotPassword(String email);
   Future<Either<String, void>> resetPassword(
       String email, int otp, String newPassword);
+  Future<void> appStarted();
 }

@@ -1,14 +1,15 @@
 import 'package:crypto_core/common/themes/app_theme.dart';
 
-import 'package:crypto_core/core/dependencies/injection.dart';
-import 'package:crypto_core/core/notifiers/theme_notifier.dart';
+import 'package:crypto_core/core/dependencies/service_locator.dart';
 import 'package:crypto_core/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:provider/provider.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'common/navigation/app_router.dart';
+import 'features/theme/presentation/bloc/theme_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,11 +17,13 @@ void main() async {
   await dotenv.load(fileName: ".env.local");
   await init();
 
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: HydratedStorageDirectory(
+        (await getApplicationDocumentsDirectory()).path),
+  );
+
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => s1<ThemeNotifier>(),
-      child: const MyApp(),
-    ),
+    const MyApp(),
   );
 }
 
@@ -34,18 +37,21 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => AuthBloc(),
         ),
+        BlocProvider(
+          create: (_) => ThemeBloc(),
+        )
         // BlocProvider(
         //   create: (context) => NewsBloc(),
         // ),
       ],
-      child: Consumer<ThemeNotifier>(
-        builder: (context, themeNotifier, child) {
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
           return MaterialApp.router(
             routerConfig: AppRouter.router,
             title: 'CryptoCore',
             theme: lightMode,
             darkTheme: darkMode,
-            themeMode: themeNotifier.themeMode,
+            themeMode: state.themeMode,
             debugShowCheckedModeBanner: false,
           );
         },

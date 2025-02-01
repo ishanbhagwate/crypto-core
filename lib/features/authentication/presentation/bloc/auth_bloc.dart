@@ -1,4 +1,4 @@
-import 'package:crypto_core/core/dependencies/injection.dart';
+import 'package:crypto_core/core/dependencies/service_locator.dart';
 import 'package:crypto_core/features/authentication/domain/entities/user.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/refresh_token_usecase.dart';
 import 'package:dartz/dartz.dart';
@@ -33,7 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onLoginRequested(
       LoginRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    final failureOrUser = await s1<LoginUsecase>().call(
+    final failureOrUser = await sl<LoginUsecase>().call(
       event.email,
       event.password,
       event.isSocial,
@@ -48,7 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onSignupRequested(
       SignupRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    final failureOrUser = await s1<SignupUsecase>().call(
+    final failureOrUser = await sl<SignupUsecase>().call(
       event.email,
       event.name,
       event.password,
@@ -89,25 +89,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       RefreshTokenRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     final failureOrUser =
-        await s1<RefreshTokenUsecase>().call(event.refreshToken);
+        await sl<RefreshTokenUsecase>().call(event.refreshToken);
     emit(_eitherSuccessOrFailure(failureOrUser));
   }
 
   Future<void> _onLogoutRequested(
       LogoutRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    await s1<LogoutUsecase>().call();
+    await sl<LogoutUsecase>().call();
     emit(AuthUnauthenticated());
   }
 
   Future<void> _onAppStarted(AppStarted event, Emitter<AuthState> emit) async {
-    // final token = await tokenStorageService.getAccessToken();
-    // if (token != null) {
-    //   final user = await tokenStorageService.getUser(); // Replace with actual logic
-    //   emit(AuthAuthenticated(user));
-    // } else {
-    //   emit(AuthUnauthenticated());
-    // }
+    emit(AuthLoading());
+    // final failureOr await sl<AppStartedUsecase>.call();
+    emit(AuthAuthenticated(
+        User(accessToken: 'accessToken', refreshToken: 'refreshToken')));
   }
 
   AuthState _eitherSuccessOrFailure(Either<String, User> either) {

@@ -1,12 +1,12 @@
+import 'package:crypto_core/core/extensions/theme_extension.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/constants/api_constants.dart';
-import '../../../../core/notifiers/theme_notifier.dart';
 import '../bloc/auth_bloc.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late ThemeNotifier themeNotifier;
+  // late ThemeNotifier themeNotifier;
   bool _isPasswordVisible = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -37,12 +37,12 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  @override
-  void didChangeDependencies() {
-    themeNotifier = Provider.of<ThemeNotifier>(context);
+  // @override
+  // void didChangeDependencies() {
+  //   themeNotifier = Provider.of<ThemeNotifier>(context);
 
-    super.didChangeDependencies();
-  }
+  //   super.didChangeDependencies();
+  // }
 
   @override
   void initState() {
@@ -109,10 +109,10 @@ class _LoginPageState extends State<LoginPage> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [
-                  themeNotifier.themeMode == ThemeMode.light
+                  context.themeMode == ThemeMode.light
                       ? Theme.of(context).colorScheme.primary.withAlpha(100)
                       : Colors.white12,
-                  themeNotifier.themeMode == ThemeMode.light
+                  context.themeMode == ThemeMode.light
                       ? Theme.of(context).canvasColor
                       : Colors.transparent,
                 ],
@@ -120,7 +120,9 @@ class _LoginPageState extends State<LoginPage> {
                 end: Alignment.bottomCenter,
                 stops: [
                   0.0,
-                  themeNotifier.themeMode == ThemeMode.light ? 0.4 : 0.8,
+                  context.themeMode == ThemeMode.light
+                      ? 0.4
+                      : 0.8,
                 ]),
           ),
           child: Column(
@@ -140,9 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                             border: Border.all(
                               width: 2,
                               style: BorderStyle.solid,
-                              color: themeNotifier.themeMode == ThemeMode.dark
-                                  ? Colors.white
-                                  : Colors.black87,
+                              color: Theme.of(context).iconTheme.color!,
                             ),
                             borderRadius: BorderRadius.circular(100)),
                         child: Icon(
@@ -199,9 +199,11 @@ class _LoginPageState extends State<LoginPage> {
                             Icon(
                               LineIcons.googleLogo,
                               size: 30,
-                              color: themeNotifier.themeMode == ThemeMode.dark
-                                  ? Colors.red.shade400
-                                  : Colors.red.shade600,
+                              color:
+                                  context.themeMode ==
+                                          ThemeMode.dark
+                                      ? Colors.red.shade400
+                                      : Colors.red.shade600,
                             ),
                             Text(
                               'Google',
@@ -230,9 +232,11 @@ class _LoginPageState extends State<LoginPage> {
                             Icon(
                               LineIcons.facebookF,
                               size: 25,
-                              color: themeNotifier.themeMode == ThemeMode.dark
-                                  ? Colors.blue
-                                  : Colors.blue.shade600,
+                              color:
+                                  context.themeMode ==
+                                          ThemeMode.dark
+                                      ? Colors.blue
+                                      : Colors.blue.shade600,
                             ),
                             Text(
                               'Facebook',
