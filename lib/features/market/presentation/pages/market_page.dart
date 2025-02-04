@@ -6,7 +6,6 @@ import '../widgets/overview_widget.dart';
 import '../widgets/top_widget.dart';
 
 class MarketPage extends StatefulWidget {
-  
   const MarketPage({super.key});
 
   @override

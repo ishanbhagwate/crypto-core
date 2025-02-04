@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/navigation/route_paths.dart';
 import '../../../authentication/presentation/bloc/auth_bloc.dart';
 import '../../../theme/presentation/bloc/theme_bloc.dart';
 
@@ -34,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
             BlocListener<AuthBloc, AuthState>(
               listener: (context, state) {
                 if (state is AuthUnauthenticated) {
-                  context.go('/getStarted');
+                  context.go(RoutePaths.getStarted.path);
                 }
               },
               child: SizedBox(

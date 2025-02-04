@@ -1,4 +1,5 @@
 import 'package:crypto_core/common/navigation/route_paths.dart';
+import 'package:crypto_core/common/widgets/primary_button_widget.dart';
 import 'package:crypto_core/core/extensions/theme_extension.dart';
 
 import 'package:flutter/material.dart';
@@ -121,9 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                 end: Alignment.bottomCenter,
                 stops: [
                   0.0,
-                  context.themeMode == ThemeMode.light
-                      ? 0.4
-                      : 0.8,
+                  context.themeMode == ThemeMode.light ? 0.4 : 0.8,
                 ]),
           ),
           child: Column(
@@ -200,11 +199,9 @@ class _LoginPageState extends State<LoginPage> {
                             Icon(
                               LineIcons.googleLogo,
                               size: 30,
-                              color:
-                                  context.themeMode ==
-                                          ThemeMode.dark
-                                      ? Colors.red.shade400
-                                      : Colors.red.shade600,
+                              color: context.themeMode == ThemeMode.dark
+                                  ? Colors.red.shade400
+                                  : Colors.red.shade600,
                             ),
                             Text(
                               'Google',
@@ -223,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         color: Theme.of(context).cardTheme.color,
                         onPressed: () {
-                          // context.push('/login');
+                          // context.push(RoutePaths.login.path);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -233,11 +230,9 @@ class _LoginPageState extends State<LoginPage> {
                             Icon(
                               LineIcons.facebookF,
                               size: 25,
-                              color:
-                                  context.themeMode ==
-                                          ThemeMode.dark
-                                      ? Colors.blue
-                                      : Colors.blue.shade600,
+                              color: context.themeMode == ThemeMode.dark
+                                  ? Colors.blue
+                                  : Colors.blue.shade600,
                             ),
                             Text(
                               'Facebook',
@@ -327,7 +322,7 @@ class _LoginPageState extends State<LoginPage> {
                 elevation: 0,
                 // color: Colors.transparent,
                 onPressed: () {
-                  context.push('/forgotPassword');
+                  context.push(RoutePaths.forgotPassword.path);
                 },
                 child: Text(
                   'Forgot password',
@@ -347,7 +342,7 @@ class _LoginPageState extends State<LoginPage> {
                         elevation: 0,
                         color: Theme.of(context).colorScheme.secondary,
                         onPressed: () {
-                          _submitForm();
+
                         },
                         child: SizedBox(
                           width: 30,
@@ -361,15 +356,9 @@ class _LoginPageState extends State<LoginPage> {
                   return SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     height: 52,
-                    child: MaterialButton(
-                      elevation: 0,
-                      color: Theme.of(context).colorScheme.secondary,
-                      onPressed: () {
-                        _submitForm();
-                      },
-                      child: Text(
-                        'Login',
-                      ),
+                    child: PrimaryButtonWidget(
+                      onPressed: _submitForm,
+                      title: 'Login',
                     ),
                   );
                 },

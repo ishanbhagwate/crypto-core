@@ -17,7 +17,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-
   bool _isPasswordVisible = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -77,8 +76,6 @@ class _SignupPageState extends State<SignupPage> {
       },
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +184,6 @@ class _SignupPageState extends State<SignupPage> {
                         color: Theme.of(context).cardTheme.color,
                         onPressed: () {
                           _googleSignUp();
-
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -217,9 +213,7 @@ class _SignupPageState extends State<SignupPage> {
                         focusElevation: 0,
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         color: Theme.of(context).cardTheme.color,
-                        onPressed: () {
-
-                        },
+                        onPressed: () {},
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -362,6 +356,7 @@ class _SignupPageState extends State<SignupPage> {
                       },
                       child: Text(
                         'Register',
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   );

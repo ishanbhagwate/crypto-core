@@ -1,4 +1,4 @@
-import 'package:crypto_core/common/themes/app_theme.dart';
+import 'package:crypto_core/common/styles/app_theme.dart';
 
 import 'package:crypto_core/core/dependencies/service_locator.dart';
 import 'package:crypto_core/features/authentication/presentation/bloc/auth_bloc.dart';

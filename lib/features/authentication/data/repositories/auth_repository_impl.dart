@@ -91,7 +91,8 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Either<String, User>> refreshToken(String refreshToken) async {
     try {
-      final user = await remoteDateSource.refreshToken(refreshToken);
+      final userId = JwtDecoder.decode(refreshToken)['userId'];
+      final user = await remoteDateSource.refreshToken(refreshToken, userId);
 
       //save tokens
       await tokenStorageService.saveTokens(user.accessToken, user.refreshToken);
@@ -124,8 +125,9 @@ class AuthRepositoryImpl extends AuthRepository {
       return Left('Please login again.');
     } else if (JwtDecoder.isExpired(accessToken) && refreshToken != null) {
       //fetch new token
-      final user = await remoteDateSource.refreshToken(refreshToken);
+      final userId = JwtDecoder.decode(accessToken)['userId'];
 
+      final user = await remoteDateSource.refreshToken(refreshToken, userId);
       //save tokens
       await tokenStorageService.saveTokens(user.accessToken, user.refreshToken);
 

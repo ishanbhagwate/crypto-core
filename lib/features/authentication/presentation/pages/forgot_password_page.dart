@@ -210,6 +210,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 },
                 child: Text(
                   'Submit',
+                        style: Theme.of(context).textTheme.titleMedium,
+
                 ),
               ),
             ),

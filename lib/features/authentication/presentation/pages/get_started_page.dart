@@ -1,9 +1,8 @@
-
+import 'package:crypto_core/common/navigation/route_paths.dart';
 import 'package:crypto_core/core/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-
 
 class GetStartedPage extends StatefulWidget {
   const GetStartedPage({super.key});
@@ -75,11 +74,9 @@ class _GetStartedPageState extends State<GetStartedPage> {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.6,
               height: 55,
-              child: MaterialButton(
-                elevation: 0,
-                color: Theme.of(context).colorScheme.secondary,
+              child: ElevatedButton(
                 onPressed: () {
-                  context.push('/signup');
+                  context.push(RoutePaths.signup.path);
                 },
                 child: Text(
                   'Get Started',
@@ -95,7 +92,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                 elevation: 0,
                 // color: Colors.transparent,
                 onPressed: () {
-                  context.push('/login');
+                  context.push(RoutePaths.login.path);
                 },
                 child: Text(
                   'Already have an account? Login',

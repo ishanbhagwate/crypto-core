@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:provider/provider.dart';
-
-import '../../features/theme/presentation/bloc/theme_bloc.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   final PageController pageController;
@@ -19,15 +16,6 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
-  // late ThemeNotifier themeNotifier;
-
-  @override
-  void didChangeDependencies() {
-    // themeNotifier = Provider.of<ThemeNotifier>(context);
-
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Animate(
@@ -35,9 +23,8 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         decoration: BoxDecoration(
           color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
           border: Border.all(
-            color:  context.read<ThemeBloc>().state.themeMode  == ThemeMode.dark
-                ? Colors.white10
-                : Colors.black.withAlpha(15),
+            color:
+                Theme.of(context).inputDecorationTheme.border!.borderSide.color,
             width: 1,
             style: BorderStyle.solid,
           ),
@@ -52,7 +39,6 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
             haptic: true,
             rippleColor:
                 Theme.of(context).bottomNavigationBarTheme.selectedItemColor!,
-                
             tabBorderRadius: 100,
             curve: Curves.easeInOutCubic,
             gap: 5,

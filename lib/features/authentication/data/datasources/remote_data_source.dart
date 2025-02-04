@@ -3,6 +3,8 @@ import 'package:crypto_core/features/authentication/data/models/auth_user_model.
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../../domain/entities/user.dart';
+
 abstract class AuthRemoteDataSource {
   Future<AuthUserModel> login(
     final String email,
@@ -15,7 +17,7 @@ abstract class AuthRemoteDataSource {
   );
   Future<void> logout(String token);
   // Future<void> appStarted();
-  Future<AuthUserModel> refreshToken(String refreshToken);
+  Future<User> refreshToken(String refreshToken,String userId);
   Future<AuthUserModel> signup(
     final String email,
     final String name,
@@ -162,17 +164,18 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<AuthUserModel> refreshToken(String refreshToken) async {
+  Future<User> refreshToken(String refreshToken,String userId) async {
     try {
       final response = await dio.post(
         ApiConstants.refreshToken,
         data: {
           'refreshToken': refreshToken,
+          'userId':userId,
         },
       );
 
       if (response.statusCode == 200) {
-        return AuthUserModel.fromJson(response.data);
+        return User(accessToken: response.data['token'],refreshToken: refreshToken);
       } else {
         throw Exception(response.statusMessage);
       }
