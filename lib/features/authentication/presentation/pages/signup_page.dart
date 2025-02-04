@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../../../common/navigation/route_paths.dart';
 import '../bloc/auth_bloc.dart';
 
 class SignupPage extends StatefulWidget {
@@ -85,7 +86,7 @@ class _SignupPageState extends State<SignupPage> {
       listener: (context, state) {
         if (state is AuthAuthenticated) {
           // Navigate to the home page or desired route on successful signup
-          context.go('/');
+          context.go(RoutePaths.home.path);
         } else if (state is AuthError) {
           // Show an error message if signup fails
           ScaffoldMessenger.of(context).showSnackBar(

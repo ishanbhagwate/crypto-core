@@ -1,3 +1,4 @@
+import 'package:crypto_core/common/navigation/route_paths.dart';
 import 'package:crypto_core/core/extensions/theme_extension.dart';
 
 import 'package:flutter/material.dart';
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
       listener: (context, state) {
         if (state is AuthAuthenticated) {
           // Navigate to the home page or desired route on successful login
-          context.go('/');
+          context.go(RoutePaths.home.path);
         } else if (state is AuthError) {
           // Show an error message if signup fails
           ScaffoldMessenger.of(context).showSnackBar(

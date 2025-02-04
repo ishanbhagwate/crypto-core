@@ -27,6 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
+        print(state);
         if (state is AuthAuthenticated) {
           context.go(RoutePaths.home.path);
         }

@@ -4,6 +4,7 @@ import 'package:crypto_core/features/authentication/domain/usecases/refresh_toke
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/usecases/app_started_usecase.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/signup_usecase.dart';
@@ -102,9 +103,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onAppStarted(AppStarted event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    // final failureOr await sl<AppStartedUsecase>.call();
-    emit(AuthAuthenticated(
-        User(accessToken: 'accessToken', refreshToken: 'refreshToken')));
+    final failureOrUser = await sl<AppStartedUsecase>().call();
+    emit(_eitherSuccessOrFailure(failureOrUser));
   }
 
   AuthState _eitherSuccessOrFailure(Either<String, User> either) {

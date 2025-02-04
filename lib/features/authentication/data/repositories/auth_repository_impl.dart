@@ -3,6 +3,7 @@ import 'package:crypto_core/features/authentication/data/datasources/remote_data
 import 'package:crypto_core/features/authentication/domain/entities/user.dart';
 import 'package:crypto_core/features/authentication/domain/respositories/auth_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final AuthRemoteDataSource remoteDateSource;
@@ -30,6 +31,10 @@ class AuthRepositoryImpl extends AuthRepository {
         deviceInfo,
         ipAddress,
       );
+
+      print(user.name);
+      print(user.accessToken);
+      print(user.refreshToken);
 
       //save tokens
       await tokenStorageService.saveTokens(user.accessToken, user.refreshToken);
@@ -75,9 +80,11 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<void> logout() async {
     //delete tokens
-    await tokenStorageService.clearTokens();
 
-    await remoteDateSource.logout();
+    String token = await tokenStorageService.getRefreshToken() ?? '';
+    await remoteDateSource.logout(token);
+
+    await tokenStorageService.clearTokens();
     return;
   }
 
@@ -107,16 +114,29 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> appStarted() async{
+  Future<Either<String, User>> appStarted() async {
     String? accessToken = await tokenStorageService.getAccessToken();
-    if(accessToken == null){
+    String? refreshToken = await tokenStorageService.getRefreshToken();
+
+    if (accessToken == null) {
       //logout
-      
-    }else{
+      await tokenStorageService.clearTokens();
+      return Left('Please login again.');
+    } else if (JwtDecoder.isExpired(accessToken) && refreshToken != null) {
+      //fetch new token
+      final user = await remoteDateSource.refreshToken(refreshToken);
 
+      //save tokens
+      await tokenStorageService.saveTokens(user.accessToken, user.refreshToken);
+
+      return Right(user);
+    } else if (refreshToken != null) {
+      //logged in
+      return Right(User(accessToken: accessToken, refreshToken: refreshToken));
+    } else {
+      //logout
+      await tokenStorageService.clearTokens();
+      return Left('Please login again.');
     }
-
-    await remoteDateSource.appStarted();
-    return ;
   }
 }

@@ -2,27 +2,33 @@ import 'package:crypto_core/core/services/token_service.dart';
 import 'package:crypto_core/core/services/token_storage_service.dart';
 import 'package:crypto_core/features/authentication/data/datasources/remote_data_source.dart';
 import 'package:crypto_core/features/authentication/data/repositories/auth_repository_impl.dart';
+import 'package:crypto_core/features/authentication/domain/usecases/app_started_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/forgot_password_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/login_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/logout_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/refresh_token_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/reset_password_usecase.dart';
 import 'package:crypto_core/features/authentication/domain/usecases/signup_usecase.dart';
-import 'package:dio/dio.dart';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/authentication/domain/respositories/auth_repository.dart';
+import '../network/dio_network.dart';
+import '../utils/log/app_logger.dart';
 
 final sl = GetIt.asNewInstance();
 
 Future<void> init() async {
+  //dio
+  await initDioInjections();
+
   //core
-  sl.registerLazySingleton(() {
-    final dio = Dio();
-    return dio;
-  });
+  // sl.registerLazySingleton(() {
+  //   final dio = Dio();
+  //   return dio;
+  // });
   sl.registerLazySingleton(
     () => FlutterSecureStorage(
       aOptions: AndroidOptions(
@@ -45,7 +51,7 @@ Future<void> init() async {
 
   //auth
   sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDateSourceImpl(sl()),
+    () => AuthRemoteDateSourceImpl(DioNetwork.appAPI),
   );
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(sl(), sl()),
@@ -68,8 +74,16 @@ Future<void> init() async {
   sl.registerLazySingleton(
     () => ResetPasswordUsecase(sl()),
   );
+  sl.registerLazySingleton(
+    () => AppStartedUsecase(sl()),
+  );
 
   //news
 
   await sl.allReady();
+}
+
+Future<void> initDioInjections() async {
+  initRootLogger();
+  DioNetwork.initDio();
 }

@@ -1,6 +1,7 @@
 import 'package:crypto_core/core/constants/api_constants.dart';
 import 'package:crypto_core/features/authentication/data/models/auth_user_model.dart';
 import 'package:dio/dio.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 abstract class AuthRemoteDataSource {
   Future<AuthUserModel> login(
@@ -12,8 +13,8 @@ abstract class AuthRemoteDataSource {
     final String? deviceInfo,
     final String? ipAddress,
   );
-  Future<void> logout();
-  Future<void> appStarted();
+  Future<void> logout(String token);
+  // Future<void> appStarted();
   Future<AuthUserModel> refreshToken(String refreshToken);
   Future<AuthUserModel> signup(
     final String email,
@@ -138,19 +139,20 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<void> logout() async {
+  Future<void> logout(String token) async {
     try {
+      String id = await JwtDecoder.decode(token)['userId'];
+
       final response = await dio.post(
         ApiConstants.logout,
         data: {
-          'token': refreshToken,
+          'id': id,
+          'token': token,
         },
       );
 
       if (response.statusCode == 200) {
-        //save token
-
-        // return AuthUserModel.fromJson(response.data);
+        return;
       } else {
         throw Exception(response.statusMessage);
       }
@@ -170,8 +172,6 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDataSource {
       );
 
       if (response.statusCode == 200) {
-        //save token
-
         return AuthUserModel.fromJson(response.data);
       } else {
         throw Exception(response.statusMessage);
@@ -198,27 +198,27 @@ class AuthRemoteDateSourceImpl extends AuthRemoteDataSource {
     throw UnimplementedError();
   }
 
-  @override
-  Future<void> appStarted() async {
-    try {
-      
+  // @override
+  // Future<void> appStarted() async {
+  //   try {
+  //     //check the token and expiry
 
-      final response = await dio.post(
-        ApiConstants.logout,
-        data: {
-          'token': refreshToken,
-        },
-      );
+  //     final response = await dio.post(
+  //       ApiConstants.logout,
+  //       data: {
+  //         'token': refreshToken,
+  //       },
+  //     );
 
-      if (response.statusCode == 200) {
-        //save token
+  //     if (response.statusCode == 200) {
+  //       //save token
 
-        // return AuthUserModel.fromJson(response.data);
-      } else {
-        throw Exception(response.statusMessage);
-      }
-    } on DioException catch (e) {
-      throw 'Logout failed: ${e.response?.data['message']}';
-    }
-  }
+  //       // return AuthUserModel.fromJson(response.data);
+  //     } else {
+  //       throw Exception(response.statusMessage);
+  //     }
+  //   } on DioException catch (e) {
+  //     throw 'Logout failed: ${e.response?.data['message']}';
+  //   }
+  // }
 }
